@@ -1,0 +1,22 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    background-color: rgb(170, 170, 170);
+    border-bottom: 1px solid black;
+}
+
+.links{
+    text-decoration: none;
+    font-size: 1.6rem;
+    color: black;
+}
+
+.dugme{
+    padding: 0 3%;
+}
+
+.active{
+    text-decoration: none;
+    font-size: 1.6rem;
+}
