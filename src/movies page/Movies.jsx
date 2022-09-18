@@ -8,10 +8,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./movies.css";
 
 function Movies(props) {
   let value = "";
   const [data, setData] = useState([]);
+  // let navigate = useNavigate();
+  let location = useLocation();
+
+  React.useEffect(() => {
+    console.log(location);
+  }, []);
 
   function getData(name) {
     fetch(`https://imdb-api.com/en/API/Search/k_4h3kc34h/${name}`)
@@ -25,54 +33,56 @@ function Movies(props) {
         console.log(e);
       });
   }
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
       <Box
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "25ch" },
+          "& > :not(style)": { m: 1, width: "25ch", marginTop: "4%" },
         }}
         noValidate
         autoComplete="off"
       >
-        <form>
-          <TextField
-            id="outlined-basic"
-            label="Movie"
-            variant="outlined"
-            onChange={(e) => {
-              value = e.target.value;
-            }}
-          />
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault();
-              getData(value);
-            }}
-          >
-            Contained
-          </Button>
-        </form>
+        <TextField
+          id="outlined-basic"
+          variant="outlined"
+          // value={location.state.name}
+          onChange={(e) => {
+            value = e.target.value;
+          }}
+        />
+        <Button
+          variant="contained"
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            // value = location.state.name;
+            getData(value);
+          }}
+          style={{ marginTop: "4%" }}
+        >
+          Search
+        </Button>
       </Box>
-      {data.map((el) => {
-        return (
-          <Card sx={{ maxWidth: 345, marginBottom: "3%" }}>
-            <CardActionArea>
-              <CardMedia component="img" height="auto" image={el.image} />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {el.title}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        );
-      })}
-      ;
+      <div className="holder">
+        {data.map((el) => {
+          return (
+            <Card sx={{ maxWidth: 345, marginBottom: "3%" }}>
+              <CardActionArea>
+                <CardMedia component="img" height="auto" image={el.image} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {el.title}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          );
+        })}
+        ;
+      </div>
     </>
   );
 }

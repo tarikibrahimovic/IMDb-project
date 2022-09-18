@@ -1,16 +1,18 @@
-import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route, Link, NavLink, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import Button from "@mui/material/Button";
 import { useState } from "react";
 import "./home.css";
 
 function Home(props) {
   let value = "";
   const [data, setData] = useState([]);
+  let navigate = useNavigate();
 
   function getData(name) {
     fetch(`https://imdb-api.com/en/API/Search/k_4h3kc34h/${name}`)
@@ -50,6 +52,34 @@ function Home(props) {
           >
             Pretrazi
           </button>
+        </div>
+        <div className="dugmici">
+        <Button
+            variant="contained"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/movies",{
+                state:{
+                  name: value
+                }
+              })
+            }}
+          >
+            Movies
+          </Button>
+          <Button
+            variant="contained"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/tvshows",{
+                state:{
+                  name: value
+                }
+              })
+            }}
+          >
+            Tv Shows
+          </Button>
         </div>
       <div className="holder">
         {data.map((el) => {

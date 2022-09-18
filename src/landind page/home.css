@@ -48,3 +48,10 @@
     justify-content: space-evenly;
     margin-top: 15%;
 }
+
+.dugmici{
+    margin-top: 2%;
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+}
